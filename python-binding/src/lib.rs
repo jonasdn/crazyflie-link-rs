@@ -15,9 +15,10 @@ impl LinkContext {
         Ok(LinkContext { context })
     }
 
-    fn scan(&self) -> PyResult<Vec<String>> {
+    #[args(address="[0xe7; 5]")]
+    fn scan(&self, address: [u8; 5]) -> PyResult<Vec<String>> {
         self.context
-            .scan()
+            .scan(address)
             .map_err(|e| PyErr::new::<PyIOError, _>(format!("{:?}", e)))
     }
 
